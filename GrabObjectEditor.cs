@@ -17,5 +17,7 @@ public class GrabObjectEditor : ControllerObjectEditor
             grabObject.position = EditorGUILayout.Vector3Field("Custom Position", grabObject.position);
             grabObject.rotation = EditorGUILayout.Vector3Field("Custom Rotation", grabObject.rotation);
         }
+        grabObject.grabEvent = (ControllerEvent)EditorGUILayout.EnumPopup("Grab Event", grabObject.grabEvent);
+        grabObject.hideController = EditorGUILayout.ToggleLeft("Hide Controller", grabObject.hideController);
     }
 }

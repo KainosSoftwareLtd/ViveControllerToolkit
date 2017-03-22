@@ -8,7 +8,7 @@ public class HapticObject : MonoBehaviour
     private float _duration = 0.1f;
     private HapticForm _hapticForm = HapticForm.OnEnter;
     private HapticStyle _hapticStyle = HapticStyle.Default;
-    private HapticEvent _hapticEvent = HapticEvent.Both;
+    private ControllerEvent _hapticEvent = ControllerEvent.Both;
     private bool _overwrite = true;
     private bool duringCollision = false;
     private ControllerObject controllerObject;
@@ -62,7 +62,7 @@ public class HapticObject : MonoBehaviour
     {
         if (ControllerCheck())
         {
-            if (_hapticEvent != HapticEvent.Trigger)
+            if (_hapticEvent != ControllerEvent.Trigger)
             {
                 controllerObject.controller = col.gameObject;
                 OnEnter();
@@ -74,7 +74,7 @@ public class HapticObject : MonoBehaviour
     {
         if (ControllerCheck())
         {
-            if (_hapticEvent != HapticEvent.Collision)
+            if (_hapticEvent != ControllerEvent.Collision)
             {
                 controllerObject.controller = col.gameObject;
                 OnEnter();
@@ -86,7 +86,7 @@ public class HapticObject : MonoBehaviour
     {
         if (ControllerCheck())
         {
-            if (_hapticEvent != HapticEvent.Trigger)
+            if (_hapticEvent != ControllerEvent.Trigger)
                 OnExit();
         }
     }
@@ -95,7 +95,7 @@ public class HapticObject : MonoBehaviour
     {
         if (ControllerCheck())
         {
-            if (_hapticEvent != HapticEvent.Collision)
+            if (_hapticEvent != ControllerEvent.Collision)
                 OnExit();
         }
     }
@@ -124,7 +124,7 @@ public class HapticObject : MonoBehaviour
         set { _hapticStyle = value; }
     }
 
-    public HapticEvent hapticEvent
+    public ControllerEvent hapticEvent
     {
         get { return _hapticEvent; }
         set { _hapticEvent = value; }

@@ -1,0 +1,1 @@
+﻿public enum ControllerEvent { Both, Collision, Trigger }

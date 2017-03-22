@@ -1,1 +1,0 @@
-﻿public enum HapticEvent { Both, Collision, Trigger }

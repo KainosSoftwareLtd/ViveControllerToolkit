@@ -23,7 +23,7 @@ public class HapticObjectEditor : ControllerObjectEditor {
         {
             hapticObject.hapticStyle = (HapticStyle)EditorGUILayout.EnumPopup("Haptic Style", hapticObject.hapticStyle);
         }
-        hapticObject.hapticEvent = (HapticEvent)EditorGUILayout.EnumPopup("Haptic Event", hapticObject.hapticEvent);
+        hapticObject.hapticEvent = (ControllerEvent)EditorGUILayout.EnumPopup("Haptic Event", hapticObject.hapticEvent);
         hapticObject.overwrite = EditorGUILayout.ToggleLeft("Overwrite ", hapticObject.overwrite); 
     }
 }
