@@ -2,157 +2,160 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Button { Trigger, Grip, Touch, TouchDown, None }
-public enum PickupType { Origin, Natural, OriginLerp, Custom }
-
-public class GrabObject : MonoBehaviour
+namespace ViveController
 {
-    private Button _button = Button.Trigger;
-    private PickupType _pickupType = PickupType.Origin;
-    private ControllerEvent _grabEvent = ControllerEvent.Both;
-    private bool _hideController = true;
-    private Vector3 _position;
-    private Vector3 _rotation;
-    private bool _duringCollision = false;
-    private ControllerObject controllerObject;
+    public enum Button { Trigger, Grip, Touch, TouchDown, None }
+    public enum PickupType { Origin, Natural, OriginLerp, Custom }
 
-    private void Start()
+    public class GrabObject : MonoBehaviour
     {
-        controllerObject = new ControllerObject();
-    }
+        private Button _button = Button.Trigger;
+        private PickupType _pickupType = PickupType.Origin;
+        private ControllerEvent _grabEvent = ControllerEvent.Both;
+        private bool _hideController = true;
+        private Vector3 _position;
+        private Vector3 _rotation;
+        private bool _duringCollision = false;
+        private ControllerObject controllerObject;
 
-    private void Update()
-    {
-        if (_duringCollision)
+        private void Start()
         {
-            bool grab = false;
-            switch (_button)
-            {
-                //TODO check if each button is pressed
-                case Button.Grip:
-                    break;
-                case Button.None:
-                    grab = true;
-                    break;
-                case Button.Touch:
-                    break;
-                case Button.TouchDown:
-                    break;
-                case Button.Trigger:
-                    break;
-            }
-            if (grab)
-                Grab();
+            controllerObject = new ControllerObject();
         }
-    }
 
-    private void Grab()
-    {
-        switch (_pickupType)
+        private void Update()
         {
-            //TODO 
-            case PickupType.Origin:
-                break;
-            case PickupType.OriginLerp:
-                break;
-            case PickupType.Natural:
-                break;
-            case PickupType.Custom:
-                break;
-        }
-    }
-
-    private void OnEnter()
-    {
-        _duringCollision = true;
-    }
-
-    private void OnExit()
-    {
-        _duringCollision = false;
-    }
-
-    private bool ControllerCheck()
-    {
-        //TODO
-        return true;
-    }
-
-    private void OnCollisionEnter(Collision col)
-    {
-        if (ControllerCheck())
-        {
-            if (_grabEvent != ControllerEvent.Trigger)
+            if (_duringCollision)
             {
-                controllerObject.controller = col.gameObject;
-                OnEnter();
+                bool grab = false;
+                switch (_button)
+                {
+                    //TODO check if each button is pressed
+                    case Button.Grip:
+                        break;
+                    case Button.None:
+                        grab = true;
+                        break;
+                    case Button.Touch:
+                        break;
+                    case Button.TouchDown:
+                        break;
+                    case Button.Trigger:
+                        break;
+                }
+                if (grab)
+                    Grab();
             }
         }
-    }
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if (ControllerCheck())
+        private void Grab()
         {
-            if (_grabEvent != ControllerEvent.Collision)
+            switch (_pickupType)
             {
-                controllerObject.controller = col.gameObject;
-                OnEnter();
+                //TODO 
+                case PickupType.Origin:
+                    break;
+                case PickupType.OriginLerp:
+                    break;
+                case PickupType.Natural:
+                    break;
+                case PickupType.Custom:
+                    break;
             }
         }
-    }
 
-    private void OnCollisionExit(Collision col)
-    {
-        if (ControllerCheck())
+        private void OnEnter()
         {
-            if (_grabEvent != ControllerEvent.Trigger)
-                OnExit();
+            _duringCollision = true;
         }
-    }
 
-    private void OnTriggerExit(Collider col)
-    {
-        if (ControllerCheck())
+        private void OnExit()
         {
-            if (_grabEvent != ControllerEvent.Collision)
-                OnExit();
+            _duringCollision = false;
         }
-    }
 
-    public Button button
-    {
-        get { return _button; }
-        set { _button = value; }
-    }
+        private bool ControllerCheck()
+        {
+            //TODO
+            return true;
+        }
 
-    public PickupType pickupType
-    {
-        get { return _pickupType; }
-        set { _pickupType = value; }
-    }
+        private void OnCollisionEnter(Collision col)
+        {
+            if (ControllerCheck())
+            {
+                if (_grabEvent != ControllerEvent.Trigger)
+                {
+                    controllerObject.controller = col.gameObject;
+                    OnEnter();
+                }
+            }
+        }
 
-    public ControllerEvent grabEvent
-    {
-        get { return _grabEvent; }
-        set { _grabEvent = value; }
-    }
+        private void OnTriggerEnter(Collider col)
+        {
+            if (ControllerCheck())
+            {
+                if (_grabEvent != ControllerEvent.Collision)
+                {
+                    controllerObject.controller = col.gameObject;
+                    OnEnter();
+                }
+            }
+        }
 
-    public bool hideController
-    {
-        get { return _hideController; }
-        set { _hideController = value; }
-    }
+        private void OnCollisionExit(Collision col)
+        {
+            if (ControllerCheck())
+            {
+                if (_grabEvent != ControllerEvent.Trigger)
+                    OnExit();
+            }
+        }
 
-    public Vector3 position
-    {
-        get { return _position; }
-        set { _position = value; }
-    }
+        private void OnTriggerExit(Collider col)
+        {
+            if (ControllerCheck())
+            {
+                if (_grabEvent != ControllerEvent.Collision)
+                    OnExit();
+            }
+        }
 
-    public Vector3 rotation
-    {
-        get { return _rotation; }
-        set { _rotation = value; }
+        public Button button
+        {
+            get { return _button; }
+            set { _button = value; }
+        }
+
+        public PickupType pickupType
+        {
+            get { return _pickupType; }
+            set { _pickupType = value; }
+        }
+
+        public ControllerEvent grabEvent
+        {
+            get { return _grabEvent; }
+            set { _grabEvent = value; }
+        }
+
+        public bool hideController
+        {
+            get { return _hideController; }
+            set { _hideController = value; }
+        }
+
+        public Vector3 position
+        {
+            get { return _position; }
+            set { _position = value; }
+        }
+
+        public Vector3 rotation
+        {
+            get { return _rotation; }
+            set { _rotation = value; }
+        }
     }
 }

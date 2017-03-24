@@ -1,1 +1,4 @@
-﻿public enum HapticStyle { Default, Crescendo, Diminuendo }
+﻿namespace ViveController
+{
+    public enum HapticStyle { Default, Crescendo, Diminuendo }
+}

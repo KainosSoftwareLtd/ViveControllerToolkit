@@ -1,138 +1,145 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class HapticObject : MonoBehaviour
+namespace ViveController
 {
-    private int _strength = 3999;
-    private float _duration = 0.1f;
-    private HapticForm _hapticForm = HapticForm.OnEnter;
-    private HapticStyle _hapticStyle = HapticStyle.Default;
-    private ControllerEvent _hapticEvent = ControllerEvent.Both;
-    private bool _overwrite = true;
-    private bool duringCollision = false;
-    private ControllerObject controllerObject;
+    public class HapticObject : MonoBehaviour
+    {
+        [SerializeField]
+        private int _strength = 3999;
+        [SerializeField]
+        private float _duration = 0.1f;
+        [SerializeField]
+        private HapticForm _hapticForm = HapticForm.OnEnter;
+        [SerializeField]
+        private HapticStyle _hapticStyle = HapticStyle.Default;
+        [SerializeField]
+        private ControllerEvent _hapticEvent = ControllerEvent.Both;
+        [SerializeField]
+        private bool _overwrite = true;
+        private bool duringCollision = false;
+        private ControllerObject controllerObject;
 
-    private void Start()
-    {
-        controllerObject = new ControllerObject();
-    }
-	
-	private void Update ()
-    {
-        if (duringCollision)
+        private void Start()
         {
-            controllerObject.hapticController.Haptic(_strength, _overwrite);
+            controllerObject = new ControllerObject();
         }
-    }
 
-    private void OnEnter ()
-    {
-        switch (_hapticForm)
+        private void Update()
         {
-            case HapticForm.OnEnter:
-                controllerObject.hapticController.Haptic(_duration, _strength, _hapticStyle, _overwrite);
-                break;
-            case HapticForm.DuringCollision:
-                duringCollision = true;
-                break;
-        }
-    }
-
-    private void OnExit()
-    {
-        switch (_hapticForm)
-        {
-            case HapticForm.OnExit:
-                controllerObject.hapticController.Haptic(_duration, _strength, _hapticStyle, _overwrite);
-                break;
-            case HapticForm.DuringCollision:
-                duringCollision = false;
-                break;
-        }
-    }
-
-    private bool ControllerCheck()
-    {
-        //TODO
-        return true;
-    }
-
-    private void OnCollisionEnter(Collision col)
-    {
-        if (ControllerCheck())
-        {
-            if (_hapticEvent != ControllerEvent.Trigger)
+            if (duringCollision)
             {
-                controllerObject.controller = col.gameObject;
-                OnEnter();
+                controllerObject.hapticController.Haptic(_strength, _overwrite);
             }
         }
-    }
 
-    private void OnTriggerEnter(Collider col)
-    {
-        if (ControllerCheck())
+        private void OnEnter()
         {
-            if (_hapticEvent != ControllerEvent.Collision)
+            switch (_hapticForm)
             {
-                controllerObject.controller = col.gameObject;
-                OnEnter();
+                case HapticForm.OnEnter:
+                    controllerObject.hapticController.Haptic(_duration, _strength, _hapticStyle, _overwrite);
+                    break;
+                case HapticForm.DuringCollision:
+                    duringCollision = true;
+                    break;
             }
         }
-    }
 
-    private void OnCollisionExit(Collision col)
-    {
-        if (ControllerCheck())
+        private void OnExit()
         {
-            if (_hapticEvent != ControllerEvent.Trigger)
-                OnExit();
+            switch (_hapticForm)
+            {
+                case HapticForm.OnExit:
+                    controllerObject.hapticController.Haptic(_duration, _strength, _hapticStyle, _overwrite);
+                    break;
+                case HapticForm.DuringCollision:
+                    duringCollision = false;
+                    break;
+            }
         }
-    }
 
-    private void OnTriggerExit(Collider col)
-    {
-        if (ControllerCheck())
+        private bool ControllerCheck(GameObject go)
         {
-            if (_hapticEvent != ControllerEvent.Collision)
-                OnExit();
+            return go.name.Contains("Controller");
         }
-    }
 
-    public int strength
-    {
-        get { return _strength; }
-        set { _strength = value; }
-    }
+        private void OnCollisionEnter(Collision col)
+        {
+            if (ControllerCheck(col.gameObject))
+            {
+                if (_hapticEvent != ControllerEvent.Trigger)
+                {
+                    controllerObject.controller = col.gameObject;
+                    OnEnter();
+                }
+            }
+        }
 
-    public float duration
-    {
-        get { return _duration; }
-        set { _duration = value; }
-    }
+        private void OnTriggerEnter(Collider col)
+        {
+            if (ControllerCheck(col.gameObject))
+            {
+                if (_hapticEvent != ControllerEvent.Collision)
+                {
+                    controllerObject.controller = col.gameObject;
+                    OnEnter();
+                }
+            }
+        }
 
-    public HapticForm hapticForm
-    {
-        get { return _hapticForm; }
-        set { _hapticForm = value; }
-    }
+        private void OnCollisionExit(Collision col)
+        {
+            if (ControllerCheck(col.gameObject))
+            {
+                if (_hapticEvent != ControllerEvent.Trigger)
+                    OnExit();
+            }
+        }
 
-    public HapticStyle hapticStyle
-    {
-        get { return _hapticStyle; }
-        set { _hapticStyle = value; }
-    }
+        private void OnTriggerExit(Collider col)
+        {
+            if (ControllerCheck(col.gameObject))
+            {
+                if (_hapticEvent != ControllerEvent.Collision)
+                    OnExit();
+            }
+        }
 
-    public ControllerEvent hapticEvent
-    {
-        get { return _hapticEvent; }
-        set { _hapticEvent = value; }
-    }
+        public int strength
+        {
+            get { return _strength; }
+            set { _strength = value; }
+        }
 
-    public bool overwrite
-    {
-        get { return _overwrite; }
-        set { _overwrite = value; }
+        public float duration
+        {
+            get { return _duration; }
+            set { _duration = value; }
+        }
+
+        public HapticForm hapticForm
+        {
+            get { return _hapticForm; }
+            set { _hapticForm = value; }
+        }
+
+        public HapticStyle hapticStyle
+        {
+            get { return _hapticStyle; }
+            set { _hapticStyle = value; }
+        }
+
+        public ControllerEvent hapticEvent
+        {
+            get { return _hapticEvent; }
+            set { _hapticEvent = value; }
+        }
+
+        public bool overwrite
+        {
+            get { return _overwrite; }
+            set { _overwrite = value; }
+        }
     }
 }

@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ControllerObject
+namespace ViveController
 {
-    private GameObject _controller;
-    private HapticController _hapticController;
-    public GameObject controller
+    public class ControllerObject
     {
-        get { return _controller; }
-        set
+        private GameObject _controller;
+        private HapticController _hapticController;
+        public GameObject controller
         {
-            _controller = value;
-            _hapticController = _controller.GetComponent<HapticController>();
+            get { return _controller; }
+            set
+            {
+                _controller = value;
+                _hapticController = _controller.GetComponent<HapticController>();
+            }
         }
-    }
 
-    public HapticController hapticController
-    {
-        get { return _hapticController; }
+        public HapticController hapticController
+        {
+            get { return _hapticController; }
+        }
     }
 }
