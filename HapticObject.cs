@@ -20,6 +20,16 @@ namespace ViveController
         private bool duringCollision = false;
         private ControllerObject controllerObject;
 
+        public HapticObject(strength = 3999, duration = 0.1f, hapticForm = HapticForm.OnEnter, hapticStyle = HapticStyle.Default, hapticEvent = ControllerEvent.Both, overwrite = true)
+        {
+            _strength = strength;
+            _duration = duration;
+            _hapticForm = hapticForm;
+            _hapticStyle = hapticStyle;
+            _hapticEvent = hapticEvent;
+            _overwrite = overwrite;
+        }
+
         private void Start()
         {
             controllerObject = new ControllerObject();
