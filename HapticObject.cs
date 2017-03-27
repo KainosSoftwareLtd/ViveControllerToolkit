@@ -19,8 +19,9 @@ namespace ViveController
         private bool _overwrite = true;
         private bool duringCollision = false;
         private ControllerObject controllerObject;
+        public bool dismiss = false;
 
-        public HapticObject(strength = 3999, duration = 0.1f, hapticForm = HapticForm.OnEnter, hapticStyle = HapticStyle.Default, hapticEvent = ControllerEvent.Both, overwrite = true)
+        public HapticObject(int strength = 3999, float duration = 0.1f, HapticForm hapticForm = HapticForm.OnEnter, HapticStyle hapticStyle = HapticStyle.Default, ControllerEvent hapticEvent = ControllerEvent.Both, bool overwrite = true)
         {
             _strength = strength;
             _duration = duration;
@@ -37,10 +38,8 @@ namespace ViveController
 
         private void Update()
         {
-            if (duringCollision)
-            {
+            if (duringCollision && _hapticForm == HapticForm.DuringCollision)
                 controllerObject.hapticController.Haptic(_strength, _overwrite);
-            }
         }
 
         private void OnEnter()

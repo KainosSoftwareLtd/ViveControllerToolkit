@@ -11,7 +11,12 @@ namespace ViveController
         public override void OnInspectorGUI()
         {
             GrabObject grabObject = (GrabObject)target;
-            DependencyCheck(grabObject);
+            if (!grabObject.dismiss)
+			{
+				DependencyCheck(grabObject);
+				if (GUILayout.Button("Dismiss"))
+					grabObject.dismiss = true;
+			}
             grabObject.button = (Button)EditorGUILayout.EnumPopup("Button", grabObject.button);
             grabObject.pickupType = (PickupType)EditorGUILayout.EnumPopup("Pickup Type", grabObject.pickupType);
             if (grabObject.pickupType == PickupType.Custom)

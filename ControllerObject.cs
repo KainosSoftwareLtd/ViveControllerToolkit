@@ -8,6 +8,7 @@ namespace ViveController
     {
         private GameObject _controller;
         private HapticController _hapticController;
+        private GrabController _grabController;
         public GameObject controller
         {
             get { return _controller; }
@@ -15,6 +16,7 @@ namespace ViveController
             {
                 _controller = value;
                 _hapticController = _controller.GetComponent<HapticController>();
+                _grabController = _controller.GetComponent<GrabController>();
             }
         }
 
@@ -22,5 +24,20 @@ namespace ViveController
         {
             get { return _hapticController; }
         }
+
+        public GrabController grabController
+        {       
+            get { return _grabController; }
+        }
+
+        public SteamVR_Controller.Device device
+        {
+            get 
+            {
+                SteamVR_TrackedObject sto = _controller.GetComponent<SteamVR_TrackedObject>();
+                return SteamVR_Controller.Input((int)sto.index);
+            }
+        }
+        
     }
 }

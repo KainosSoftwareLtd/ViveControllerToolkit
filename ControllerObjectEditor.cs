@@ -12,10 +12,9 @@ namespace ViveController
             Rigidbody rb = tar.GetComponent<Rigidbody>();
             if (col == null || rb == null)
             {
-                EditorGUILayout.HelpBox((
+                EditorGUILayout.HelpBox(
                     (col == null ? "Requires a Collider.\n" : "") +
-                    (rb == null ? "Requires a Rigidbody.\n" : "") +
-                    "Please add and configure."),
+                    (rb == null ? "May require a Rigidbody.\n" : ""),
                     MessageType.Warning);
                 if (col == null && GUILayout.Button("Add Collider"))
                     tar.gameObject.AddComponent<BoxCollider>();

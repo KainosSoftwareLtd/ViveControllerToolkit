@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR;
 
 namespace ViveController
 {
-    public enum Button { Trigger, Grip, Touch, TouchDown, None }
-    public enum PickupType { Origin, Natural, OriginLerp, Custom }
-
     public class GrabObject : MonoBehaviour
     {
         private Button _button = Button.Trigger;
@@ -17,6 +15,7 @@ namespace ViveController
         private Vector3 _rotation;
         private bool _duringCollision = false;
         private ControllerObject controllerObject;
+        public bool dismiss = false;
 
         private void Start()
         {
@@ -27,40 +26,25 @@ namespace ViveController
         {
             if (_duringCollision)
             {
-                bool grab = false;
                 switch (_button)
                 {
                     //TODO check if each button is pressed
                     case Button.Grip:
                         break;
                     case Button.None:
-                        grab = true;
+                        controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
                         break;
                     case Button.Touch:
                         break;
                     case Button.TouchDown:
                         break;
                     case Button.Trigger:
+                        if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Trigger))
+                            controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
+                        if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
+                            controllerObject.grabController.dropObject();
                         break;
                 }
-                if (grab)
-                    Grab();
-            }
-        }
-
-        private void Grab()
-        {
-            switch (_pickupType)
-            {
-                //TODO 
-                case PickupType.Origin:
-                    break;
-                case PickupType.OriginLerp:
-                    break;
-                case PickupType.Natural:
-                    break;
-                case PickupType.Custom:
-                    break;
             }
         }
 
@@ -74,15 +58,14 @@ namespace ViveController
             _duringCollision = false;
         }
 
-        private bool ControllerCheck()
+        private bool ControllerCheck(GameObject go)
         {
-            //TODO
-            return true;
+            return go.name.Contains("Controller");
         }
 
         private void OnCollisionEnter(Collision col)
         {
-            if (ControllerCheck())
+            if (ControllerCheck(col.gameObject))
             {
                 if (_grabEvent != ControllerEvent.Trigger)
                 {
@@ -94,7 +77,7 @@ namespace ViveController
 
         private void OnTriggerEnter(Collider col)
         {
-            if (ControllerCheck())
+            if (ControllerCheck(col.gameObject))
             {
                 if (_grabEvent != ControllerEvent.Collision)
                 {
@@ -106,7 +89,7 @@ namespace ViveController
 
         private void OnCollisionExit(Collision col)
         {
-            if (ControllerCheck())
+            if (ControllerCheck(col.gameObject))
             {
                 if (_grabEvent != ControllerEvent.Trigger)
                     OnExit();
@@ -115,7 +98,7 @@ namespace ViveController
 
         private void OnTriggerExit(Collider col)
         {
-            if (ControllerCheck())
+            if (ControllerCheck(col.gameObject))
             {
                 if (_grabEvent != ControllerEvent.Collision)
                     OnExit();

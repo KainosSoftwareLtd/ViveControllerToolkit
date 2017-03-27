@@ -14,10 +14,11 @@ namespace ViveController
         private float _currentDuration;
         private HapticStyle _hapticStyle;
         private bool useArray = false;
+        public bool dismiss = false;
 
         public void Haptic(float duration, int strength = 3999, HapticStyle hapticStyle = HapticStyle.Default, bool overwrite = true)
         {
-            if (!(!overwrite && _currentDuration <_duration))
+            if (!(!overwrite && _currentDuration < _duration))
             {
                 _currentDuration = 0;
                 _strength = strength;
@@ -29,7 +30,7 @@ namespace ViveController
 
         public void Haptic(float duration, int[] strengths, bool overwrite = true)
         {
-            if (!(!overwrite && _currentDuration <_duration))
+            if (!(!overwrite && _currentDuration < _duration))
             {
                 _currentDuration = 0;
                 _strengths = strengths;
