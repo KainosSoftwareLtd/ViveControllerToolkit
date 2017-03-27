@@ -43,6 +43,42 @@ namespace ViveController
 			transform.Find("Model").gameObject.SetActive(true);
 		}
 
+		public GameObject grabbedObject
+		{
+			get { return _grabbedObject; }
+			set { _grabbedObject = value; }
+		}
+
+		public PickupType pickupType
+		{
+			get { return _pickupType; }
+			set { _pickupType = value; }
+		}
+
+		public bool hideController
+		{
+			get { return _hideController; }
+			set { _hideController = value; }
+		}
+
+		public Vector3 position
+		{
+			get { return _position; }
+			set { _position = value; }
+		}
+
+		public Quaternion rotation
+		{
+			get { return _rotation; }
+			set { _rotation = value; }
+		}
+
+		public float duration
+		{
+			get { return _duration; }
+			set { _rotation = value; }
+		}
+
 		private void grab(GameObject grabbedObject, PickupType pickupType, bool hideController)
 		{
 			_grabbedObject = grabbedObject;

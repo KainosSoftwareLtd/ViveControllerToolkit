@@ -28,20 +28,27 @@ namespace ViveController
             {
                 switch (_button)
                 {
-                    //TODO check if each button is pressed
-                    case Button.Grip:
-                        break;
                     case Button.None:
                         controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
                         break;
-                    case Button.Touch:
+                    case Button.Grip:
+                        if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_Grip))
+                            controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
+                        else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_Grip))
+                            controllerObject.grabController.dropObject();
                         break;
+                    case Button.Touch:
+                        //TODO
                     case Button.TouchDown:
+                        if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
+                            controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
+                        else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
+                            controllerObject.grabController.dropObject();
                         break;
                     case Button.Trigger:
                         if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Trigger))
                             controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
-                        if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
+                        else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
                             controllerObject.grabController.dropObject();
                         break;
                 }
