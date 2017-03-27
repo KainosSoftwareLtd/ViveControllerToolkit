@@ -45,8 +45,6 @@ namespace ViveController
                             controllerObject.grabController.dropObject();
                         break;
                     case Button.Touch:
-                        //TODO
-                    case Button.TouchDown:
                         if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
                             controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
                         else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
