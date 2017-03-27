@@ -12,7 +12,7 @@ namespace ViveController
         private ControllerEvent _grabEvent = ControllerEvent.Both;
         private bool _hideController = true;
         private Vector3 _position;
-        private Vector3 _rotation;
+        private Quaternion _rotation;
         private bool _duringCollision = false;
         private ControllerObject controllerObject;
         public bool dismiss = false;
@@ -142,7 +142,7 @@ namespace ViveController
             set { _position = value; }
         }
 
-        public Vector3 rotation
+        public Quaternion rotation
         {
             get { return _rotation; }
             set { _rotation = value; }

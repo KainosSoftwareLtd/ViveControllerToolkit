@@ -22,10 +22,20 @@ namespace ViveController
             if (grabObject.pickupType == PickupType.Custom)
             {
                 grabObject.position = EditorGUILayout.Vector3Field("Custom Position", grabObject.position);
-                grabObject.rotation = EditorGUILayout.Vector3Field("Custom Rotation", grabObject.rotation);
+                grabObject.rotation = getQ(EditorGUILayout.Vector4Field("Custom Rotation", getV(grabObject.rotation)));
             }
             grabObject.grabEvent = (ControllerEvent)EditorGUILayout.EnumPopup("Grab Event", grabObject.grabEvent);
             grabObject.hideController = EditorGUILayout.ToggleLeft("Hide Controller", grabObject.hideController);
+        }
+
+        private Quaternion getQ(Vector4 v)
+        {
+            return new Quaternion(v.x, v.y, v.z, v.w);
+        }
+
+        private Vector4 getV(Quaternion q)
+        {
+            return new Vector4(q.x, q.y, q.z, q.w);
         }
     }
 }

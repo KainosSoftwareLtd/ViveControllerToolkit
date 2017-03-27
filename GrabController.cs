@@ -76,7 +76,7 @@ namespace ViveController
 		public float duration
 		{
 			get { return _duration; }
-			set { _rotation = value; }
+			set { _duration = value; }
 		}
 
 		private void grab(GameObject grabbedObject, PickupType pickupType, bool hideController)
