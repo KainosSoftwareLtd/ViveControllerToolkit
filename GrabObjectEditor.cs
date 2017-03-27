@@ -11,9 +11,8 @@ namespace ViveController
         public override void OnInspectorGUI()
         {
             GrabObject grabObject = (GrabObject)target;
-            if (!grabObject.dismiss)
+            if (!grabObject.dismiss && DependencyCheck(grabObject))
 			{
-				DependencyCheck(grabObject);
 				if (GUILayout.Button("Dismiss"))
 					grabObject.dismiss = true;
 			}

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 namespace ViveController
 {
     public class HapticObject : MonoBehaviour
@@ -20,16 +21,6 @@ namespace ViveController
         private bool duringCollision = false;
         private ControllerObject controllerObject;
         public bool dismiss = false;
-
-        public HapticObject(int strength = 3999, float duration = 0.1f, HapticForm hapticForm = HapticForm.OnEnter, HapticStyle hapticStyle = HapticStyle.Default, ControllerEvent hapticEvent = ControllerEvent.Both, bool overwrite = true)
-        {
-            _strength = strength;
-            _duration = duration;
-            _hapticForm = hapticForm;
-            _hapticStyle = hapticStyle;
-            _hapticEvent = hapticEvent;
-            _overwrite = overwrite;
-        }
 
         private void Start()
         {

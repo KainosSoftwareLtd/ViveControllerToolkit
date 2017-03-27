@@ -7,12 +7,19 @@ namespace ViveController
 {
     public class GrabObject : MonoBehaviour
     {
+        [SerializeField]
         private Button _button = Button.Trigger;
-        private PickupType _pickupType = PickupType.Origin;
+        [SerializeField]
+        private PickupType _pickupType = PickupType.OriginLerp;
+        [SerializeField]
         private ControllerEvent _grabEvent = ControllerEvent.Both;
+        [SerializeField]
         private bool _hideController = true;
+        [SerializeField]
         private Vector3 _position;
+        [SerializeField]
         private Quaternion _rotation;
+        [SerializeField]
         private bool _duringCollision = false;
         private ControllerObject controllerObject;
         public bool dismiss = false;

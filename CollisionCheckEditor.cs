@@ -30,9 +30,8 @@ namespace ViveController
 		public override void OnInspectorGUI()
 		{
 			collisionCheck = (CollisionCheck)target;
-			if (!collisionCheck.dismiss)
+			if (!collisionCheck.dismiss && DependencyCheck(collisionCheck))
 			{
-				DependencyCheck(collisionCheck);
 				if (GUILayout.Button("Dismiss"))
 					collisionCheck.dismiss = true;
 			}

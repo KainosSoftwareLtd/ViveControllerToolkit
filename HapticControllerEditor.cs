@@ -11,9 +11,8 @@ namespace ViveController
         public override void OnInspectorGUI()
         {
             HapticController hapticController = (HapticController)target;
-            if (!hapticController.dismiss)
+            if (!hapticController.dismiss && DependencyCheck(hapticController))
 			{
-				DependencyCheck(hapticController);
 				if (GUILayout.Button("Dismiss"))
 					hapticController.dismiss = true;
 			}

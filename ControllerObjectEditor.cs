@@ -6,7 +6,7 @@ namespace ViveController
 {
     public class ControllerObjectEditor : Editor
     {
-        public void DependencyCheck(MonoBehaviour tar)
+        public bool DependencyCheck(MonoBehaviour tar)
         {
             Collider col = tar.GetComponent<Collider>();
             Rigidbody rb = tar.GetComponent<Rigidbody>();
@@ -20,7 +20,9 @@ namespace ViveController
                     tar.gameObject.AddComponent<BoxCollider>();
                 if (rb == null && GUILayout.Button("Add Rigidbody"))
                     tar.gameObject.AddComponent<Rigidbody>();
+                return true;
             }
+            return false;
         }
     }
 }
