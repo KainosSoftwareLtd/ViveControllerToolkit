@@ -42,19 +42,19 @@ namespace ViveController
                         if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_Grip))
                             controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
                         else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_Grip))
-                            controllerObject.grabController.dropObject();
+                            controllerObject.grabController.DropObject();
                         break;
                     case Button.Touch:
                         if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
                             controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
                         else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
-                            controllerObject.grabController.dropObject();
+                            controllerObject.grabController.DropObject();
                         break;
                     case Button.Trigger:
                         if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Trigger))
                             controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
                         else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
-                            controllerObject.grabController.dropObject();
+                            controllerObject.grabController.DropObject();
                         break;
                 }
             }

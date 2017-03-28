@@ -16,6 +16,9 @@ namespace ViveController
         private bool useArray = false;
         public bool dismiss = false;
 
+        ///<summary>
+		///Haptic Feedback.
+		///</summary>
         public void Haptic(float duration, int strength = 3999, HapticStyle hapticStyle = HapticStyle.Default, bool overwrite = true)
         {
             if (!(!overwrite && _currentDuration < _duration))
@@ -28,6 +31,9 @@ namespace ViveController
             }
         }
 
+        ///<summary>
+		///Haptic Feedback. Custom hapticStyle using strengths array spread evenly over duration.
+		///</summary>
         public void Haptic(float duration, int[] strengths, bool overwrite = true)
         {
             if (!(!overwrite && _currentDuration < _duration))
@@ -39,9 +45,36 @@ namespace ViveController
             }
         }
 
+        ///<summary>
+		///One frame of haptic feedback.
+		///</summary>
         public void Haptic(int strength = 3999, bool overwrtie = true)
         {
             device.TriggerHapticPulse((ushort)strength);
+        }
+
+        public float duration
+        {
+            get { return _duration; }
+            set { _duration = value; }
+        }
+
+        public int strength
+        {
+            get { return _strength; }
+            set { _strength = value; }
+        }
+
+        public int[] strengths
+        {
+            get { retrun _strengths; }
+            set { _strengths = value; }
+        }
+
+        public HapticStyle hapticStyle
+        {
+            get { return _hapticStyle; }
+            set { _hapticStyle = value; }
         }
 
         private void Start()

@@ -18,11 +18,17 @@ namespace ViveController
 		//TODO Think about things with gravity? Param to auto turn on isKinematic?
 		//TODO Think about re-parenting? Param?
 
+		///<summary>
+		///Grabs object passed in.
+		///</summary>
 		public void Grab(GameObject grabbedObject, PickupType pickupType = PickupType.OriginLerp, bool hideController = true)
 		{
 			grab(grabbedObject, pickupType, hideController);
 		}
 
+		///<summary>
+		///Grabs object passed in. Position and rotation used for custom pickupType.
+		///</summary>
 		public void Grab(GameObject grabbedObject, Vector3 position, Quaternion rotation, bool hideController = true)
 		{
 			grab(grabbedObject, PickupType.Custom, hideController);
@@ -30,15 +36,22 @@ namespace ViveController
 			_rotation = rotation;
 		}
 
-		public GameObject getGrabbedObject()
+		///<summary>
+		///Returns current held object. Returns null if not holding.
+		///</summary>
+		public GameObject GetGrabbedObject()
 		{
-			return _grabbedObject;
+			return isGrabbing ? _grabbedObject : null;
 		}
 
-		public void dropObject()
+		///<summary>
+		///Releases current held object.
+		///</summary>
+		public void DropObject()
 		{
 			isGrabbing = false;
 			transform.Find("Model").gameObject.SetActive(true);
+			_grabbedObject.transform.parent = null;
 		}
 
 		public GameObject grabbedObject
