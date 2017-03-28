@@ -67,7 +67,7 @@ namespace ViveController
 
         public int[] strengths
         {
-            get { retrun _strengths; }
+            get { return _strengths; }
             set { _strengths = value; }
         }
 
