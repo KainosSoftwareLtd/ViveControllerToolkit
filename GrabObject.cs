@@ -21,6 +21,7 @@ namespace ViveController
         private Quaternion _rotation;
         [SerializeField]
         private bool _duringCollision = false;
+        private bool _grabbing = false;
         private ControllerObject controllerObject;
         public bool dismiss = false;
 
@@ -31,33 +32,52 @@ namespace ViveController
 
         private void Update()
         {
-            if (_duringCollision)
+            if (_duringCollision || _grabbing)
             {
                 switch (_button)
                 {
                     case Button.None:
-                        controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
+                        grab();
                         break;
                     case Button.Grip:
-                        if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_Grip))
-                            controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
-                        else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_Grip))
-                            controllerObject.grabController.DropObject();
+                        if (controllerObject.device.GetPressDown(EVRButtonId.k_EButton_Grip))
+                            grab();
+                        else if (controllerObject.device.GetPressUp(EVRButtonId.k_EButton_Grip))
+                            ungrab();
                         break;
                     case Button.Touch:
                         if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Touchpad))
-                            controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
+                            grab();
                         else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
-                            controllerObject.grabController.DropObject();
+                            ungrab();
                         break;
                     case Button.Trigger:
-                        if(controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Trigger))
-                            controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
-                        else if(controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
-                            controllerObject.grabController.DropObject();
+                        if (controllerObject.device.GetPressDown(EVRButtonId.k_EButton_SteamVR_Trigger))
+                            grab();
+                        else if (controllerObject.device.GetPressUp(EVRButtonId.k_EButton_SteamVR_Trigger))
+                            ungrab();
                         break;
                 }
             }
+        }
+
+        private void ungrab()
+        {
+            controllerObject.grabController.DropObject();
+            _grabbing = false;
+        }
+
+        private void grab()
+        {
+            if (_pickupType == PickupType.Custom)
+            {
+                controllerObject.grabController.Grab(this.gameObject, _position, _rotation, _hideController);
+            }
+            else
+            {
+                controllerObject.grabController.Grab(this.gameObject, _pickupType, _hideController);
+            }
+            _grabbing = true;
         }
 
         private void OnEnter()

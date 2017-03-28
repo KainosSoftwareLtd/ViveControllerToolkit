@@ -13,25 +13,24 @@ namespace ViveController
 		private Quaternion _rotation;
 		private float _duration = 0.1f;
 		private bool isGrabbing = false;
+        private bool _stopGravity = true;
+        private bool _kinematic;
 		public bool dismiss = false;
-
-		//TODO Think about things with gravity? Param to auto turn on isKinematic?
-		//TODO Think about re-parenting? Param?
 
 		///<summary>
 		///Grabs object passed in.
 		///</summary>
-		public void Grab(GameObject grabbedObject, PickupType pickupType = PickupType.OriginLerp, bool hideController = true)
+		public void Grab(GameObject grabbedObject, PickupType pickupType = PickupType.OriginLerp, bool hideController = true, bool stopGravity = true)
 		{
-			grab(grabbedObject, pickupType, hideController);
+			grab(grabbedObject, pickupType, hideController, stopGravity);
 		}
 
 		///<summary>
 		///Grabs object passed in. Position and rotation used for custom pickupType.
 		///</summary>
-		public void Grab(GameObject grabbedObject, Vector3 position, Quaternion rotation, bool hideController = true)
+		public void Grab(GameObject grabbedObject, Vector3 position, Quaternion rotation, bool hideController = true, bool stopGravity = true)
 		{
-			grab(grabbedObject, PickupType.Custom, hideController);
+			grab(grabbedObject, PickupType.Custom, hideController, stopGravity);
 			_position = position;
 			_rotation = rotation;
 		}
@@ -52,7 +51,10 @@ namespace ViveController
 			isGrabbing = false;
 			transform.Find("Model").gameObject.SetActive(true);
 			_grabbedObject.transform.parent = null;
-		}
+            Rigidbody rb = _grabbedObject.GetComponent<Rigidbody>();
+            if (_stopGravity && rb != null) { }
+                rb.isKinematic = _kinematic;
+        }
 
 		public GameObject grabbedObject
 		{
@@ -90,13 +92,26 @@ namespace ViveController
 			set { _duration = value; }
 		}
 
-		private void grab(GameObject grabbedObject, PickupType pickupType, bool hideController)
+        public bool stopGravity
+        {
+            get { return _stopGravity; }
+            set { _stopGravity = value; }
+        }
+
+        private void grab(GameObject grabbedObject, PickupType pickupType, bool hideController, bool stopGravity)
 		{
 			_grabbedObject = grabbedObject;
 			_pickupType = pickupType;
 			_hideController = hideController;
+            _stopGravity = stopGravity;
 			isGrabbing = true;
 			_grabbedObject.transform.parent = this.gameObject.transform;
+            Rigidbody rb = _grabbedObject.GetComponent<Rigidbody>();
+            if (_stopGravity && rb != null)
+            {
+                _kinematic = rb.isKinematic;
+                rb.isKinematic = true;
+            }
 		}
 
 		private void Update()
