@@ -5,7 +5,7 @@ Vive Controller assets provides you with the ability to implement grab mechanics
 ## Grab Controller ##
 
 To be placed on both controllers in the SteamVR CameraRig.
-Requires SteamVRTrackedObject, a Collider may require a Rigidbody.
+Requires SteamVRTrackedObject, a Collider, may require a Rigidbody.
 
 ### Public Methods ###
 
@@ -115,7 +115,7 @@ rotation [Quaternion]
 ## Haptics Controller ##
 
 To be placed on both controllers in the SteamVR CameraRig.
-Requires SteamVRTrackedObject, a Collider may require a Rigidbody.
+Requires SteamVRTrackedObject, a Collider, may require a Rigidbody.
 
 ### Public Methods ###
 
