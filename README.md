@@ -61,7 +61,7 @@ duration [float]
 * Default: 0.1s
 * For custom / originLerp pickup. Duration of lerp in seconds.
 
-grabController [bool]
+stopGravity [bool]
 
 * Default: true.
 * Set rigidbody to isKinematic on pickup.
