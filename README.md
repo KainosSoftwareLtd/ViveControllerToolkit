@@ -199,6 +199,7 @@ hapticEvent [ControllerEvent]
 * Trigger
 
 overwrite [bool]
+
 * Default: true
 * Should object overwrite current haptics.
 
