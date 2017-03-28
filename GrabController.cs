@@ -13,7 +13,6 @@ namespace ViveController
 		private Quaternion _rotation;
 		private float _duration = 0.1f;
 		private bool isGrabbing = false;
-		private GameObject oldParent;
 		public bool dismiss = false;
 
 		//TODO Think about things with gravity? Param to auto turn on isKinematic?
@@ -39,7 +38,6 @@ namespace ViveController
 		public void dropObject()
 		{
 			isGrabbing = false;
-			//_grabbedObject.transform.parent = oldParent.transform;
 			transform.Find("Model").gameObject.SetActive(true);
 		}
 
@@ -85,7 +83,6 @@ namespace ViveController
 			_pickupType = pickupType;
 			_hideController = hideController;
 			isGrabbing = true;
-			oldParent = _grabbedObject.transform.parent.gameObject;
 			_grabbedObject.transform.parent = this.gameObject.transform;
 		}
 
