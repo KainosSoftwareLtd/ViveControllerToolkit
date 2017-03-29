@@ -18,8 +18,8 @@ namespace ViveController
 	public enum CollisionOutcome
 	{
 		Neither,
-		CollisionOnly,
-		TriggerOnly,
+		OnCollisionEnter,
+		OnTriggerEnter,
 		Both
 	}
 
@@ -46,16 +46,19 @@ namespace ViveController
 			bool onTrigger = false;
 			ArrayList targetCol = collisionType(go);
 			ArrayList thisCol = collisionType(collisionCheck.gameObject);
-
 			if (thisCol.Contains(CollisionType.StaticCollider))
 			{
 				if (targetCol.Contains(CollisionType.RigidbodyCollider))
 					onCollision = true;
+				if (targetCol.Contains(CollisionType.RigidbodyTriggerCollider) || targetCol.Contains(CollisionType.KinematicRigidbodyTriggerCollider))
+					onTrigger = true;
 			}
 			if (thisCol.Contains(CollisionType.RigidbodyCollider))
 			{
 				if (targetCol.Contains(CollisionType.StaticCollider) || targetCol.Contains(CollisionType.RigidbodyCollider) || targetCol.Contains(CollisionType.KinematicRigidbodyCollider))
 					onCollision = true;
+				if (targetCol.Contains(CollisionType.StaticTriggerCollider) || targetCol.Contains(CollisionType.RigidbodyTriggerCollider) || targetCol.Contains(CollisionType.KinematicRigidbodyTriggerCollider))
+					onTrigger = true;
 			}
 			if (thisCol.Contains(CollisionType.KinematicRigidbodyCollider))
 			{
@@ -76,7 +79,7 @@ namespace ViveController
 					onTrigger = true;
 				}
 			}
-			return (onCollision && onTrigger) ? CollisionOutcome.Both : (!onCollision && !onTrigger) ? CollisionOutcome.Neither : (onCollision) ? CollisionOutcome.CollisionOnly : CollisionOutcome.TriggerOnly;
+			return (onCollision && onTrigger) ? CollisionOutcome.Both : (!onCollision && !onTrigger) ? CollisionOutcome.Neither : (onCollision) ? CollisionOutcome.OnCollisionEnter : CollisionOutcome.OnTriggerEnter;
 		}
 
 		public ArrayList collisionType(GameObject go)
@@ -89,10 +92,13 @@ namespace ViveController
 				int colType = 0;
 				if (c.isTrigger)
 					colType += 3;
-				if (rigidbody != null && rigidbody.isKinematic)
-					colType += 2;
-				else
-					colType++;
+				if (rigidbody != null)
+				{ 
+					if (rigidbody.isKinematic)
+						colType += 2;
+					else
+						colType++;
+				}
 				colliders.Add((CollisionType)colType);
 			}
 			return colliders;
