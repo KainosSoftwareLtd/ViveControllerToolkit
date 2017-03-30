@@ -1,6 +1,10 @@
 # Vive Controller #
 
-Vive Controller library provides you with the ability to implement grab mechanics and haptics without writing any code. It also provides an improved API for both haptics and grabbing. It is built to work with SteamVR.
+Implement grab mechanics and haptics without writing any code. 
+
+Improved API for both haptics and grabbing. B
+
+Built to work with SteamVR.
 
 ## Grab Controller ##
 
