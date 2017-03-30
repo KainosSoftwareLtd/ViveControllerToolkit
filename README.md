@@ -2,7 +2,7 @@
 
 Implement grab mechanics and haptics without writing any code. 
 
-Improved API for both haptics and grabbing. B
+Improved API for both haptics and grabbing.
 
 Built to work with SteamVR.
 
