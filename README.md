@@ -4,6 +4,8 @@ Implement grab mechanics and haptics without writing any code.
 
 Improved API for both haptics and grabbing.
 
+Test collisions from inspector.
+
 Built to work with SteamVR.
 
 ## Grab Controller ##
