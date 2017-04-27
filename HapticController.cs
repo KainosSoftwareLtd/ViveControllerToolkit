@@ -48,8 +48,9 @@ namespace ViveController
         ///<summary>
 		///One frame of haptic feedback.
 		///</summary>
-        public void Haptic(int strength = 3999, bool overwrtie = true)
+        public void Haptic(int strength = 3999, bool overwrite = true)
         {
+            device = SteamVR_Controller.Input((int)sto.index);
             device.TriggerHapticPulse((ushort)strength);
         }
 
