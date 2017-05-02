@@ -76,7 +76,7 @@ stopGravity [bool]
 
 Can be placed on any object and configured to grab on some form of contact.
 Requires a Collider and may require a Rigidbody.
-Works in conjunction with GrabController. This script is to be used to provide grab functionality that can be configured in the inspector without writing code. It is optional and you my write your own code using the GrabController exposed methods.
+Works in conjunction with GrabController. This script is to be used to provide grab functionality that can be configured in the inspector without writing code. It is optional and you may write your own code using the GrabController exposed methods.
 
 ### Public Properties ###
 
@@ -167,7 +167,7 @@ hapticStyle [HapticStyle]
 
 Can be placed on any object and configured to give haptics on some form of contact.
 Requires a Collider may require a Rigidbody.
-Works in conjunction with HapticController. This script is to be used to provide haptic functionality that can be configured in the inspector without writing code. It is optional and you my write your own code using the HapticController exposed methods.
+Works in conjunction with HapticController. This script is to be used to provide haptic functionality that can be configured in the inspector without writing code. It is optional and you may write your own code using the HapticController exposed methods.
 
 ### Public Properties ###
 
