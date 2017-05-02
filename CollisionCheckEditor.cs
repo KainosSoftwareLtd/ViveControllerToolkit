@@ -26,7 +26,7 @@ namespace ViveController
 	[CustomEditor(typeof(CollisionCheck))]
 	public class CollisionCheckEditor : ControllerObjectEditor 
 	{
-		CollisionCheck collisionCheck;
+		private CollisionCheck collisionCheck;
 		public override void OnInspectorGUI()
 		{
 			collisionCheck = (CollisionCheck)target;
@@ -43,12 +43,12 @@ namespace ViveController
 				collisionCheck.objTwo = (GameObject)EditorGUILayout.ObjectField("Object: ", collisionCheck.objTwo, typeof(GameObject), true);
 		}
 
-		public CollisionOutcome checkCollision(GameObject g, GameObject go)
+		public CollisionOutcome checkCollision(GameObject objectOne, GameObject objectTwo)
 		{
 			bool onCollision = false;
 			bool onTrigger = false;
-			ArrayList targetCol = collisionType(go);
-			ArrayList thisCol = collisionType(g);
+			ArrayList thisCol = collisionType(objectOne);
+			ArrayList targetCol = collisionType(objectTwo);
 			if (thisCol.Contains(CollisionType.StaticCollider))
 			{
 				if (targetCol.Contains(CollisionType.RigidbodyCollider))
@@ -78,9 +78,7 @@ namespace ViveController
 			if (thisCol.Contains(CollisionType.RigidbodyTriggerCollider) || thisCol.Contains(CollisionType.KinematicRigidbodyTriggerCollider))
 			{
 				if (targetCol.Count > 0)
-				{
 					onTrigger = true;
-				}
 			}
 			return (onCollision && onTrigger) ? CollisionOutcome.Both : (!onCollision && !onTrigger) ? CollisionOutcome.Neither : (onCollision) ? CollisionOutcome.OnCollisionEnter : CollisionOutcome.OnTriggerEnter;
 		}

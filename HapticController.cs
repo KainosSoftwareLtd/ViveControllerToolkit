@@ -54,30 +54,6 @@ namespace ViveController
             device.TriggerHapticPulse((ushort)strength);
         }
 
-        public float duration
-        {
-            get { return _duration; }
-            set { _duration = value; }
-        }
-
-        public int strength
-        {
-            get { return _strength; }
-            set { _strength = value; }
-        }
-
-        public int[] strengths
-        {
-            get { return _strengths; }
-            set { _strengths = value; }
-        }
-
-        public HapticStyle hapticStyle
-        {
-            get { return _hapticStyle; }
-            set { _hapticStyle = value; }
-        }
-
         private void Start()
         {
             sto = GetComponent<SteamVR_TrackedObject>();
@@ -112,6 +88,30 @@ namespace ViveController
                         return _strength;
                 }
             }
+        }
+
+        public float duration
+        {
+            get { return _duration; }
+            set { _duration = value; }
+        }
+
+        public int strength
+        {
+            get { return _strength; }
+            set { _strength = value; }
+        }
+
+        public int[] strengths
+        {
+            get { return _strengths; }
+            set { _strengths = value; }
+        }
+
+        public HapticStyle hapticStyle
+        {
+            get { return _hapticStyle; }
+            set { _hapticStyle = value; }
         }
     }
 }
